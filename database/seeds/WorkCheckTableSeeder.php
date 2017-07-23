@@ -11,6 +11,6 @@ class WorkCheckTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\work_check::class,50)->create();
+        factory(App\work_check::class,10000)->create();
     }
 }

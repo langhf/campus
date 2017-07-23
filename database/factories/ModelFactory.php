@@ -28,7 +28,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\pay_info::class,function(Faker\Generator $faker){
     $num = random_int(8,15);
    return [
-       'user_id' => factory(App\User::class)->create()->user_id,
+       'user_id' => '174519',
        'pay_date' => $faker->date(),
        'pay_time' => $faker->time(),
        'origin_price' => $num,
@@ -39,18 +39,13 @@ $factory->define(App\pay_info::class,function(Faker\Generator $faker){
 
 $factory->define(App\work_check::class,function (Faker\Generator $faker){
 
-    $start_time = $faker->time();
-    $end_time = $faker->time();
-    $total_time = strtotime($end_time)-strtotime($start_time);
-    $total_time = $total_time/(60*60);
+    $check_date = $faker->date();
+    $check_time = $faker->time();
 
     return [
-      'user_id' => factory(App\User::class)->create()->user_id,
-
-      'record_date' => $faker->date(),
-      'start_time' => $start_time,
-      'end_time' => $end_time,
-      'total_time' => $total_time,
+      'user_id' => '174519',
+      'check_date' => $check_date,
+      'check_time' => $check_time,
     ];
 });
 
@@ -60,8 +55,8 @@ $factory->define(App\door_checks::class,function(Faker\Generator $faker){
 //      'user_id' => function(){
 //          return factory(App\User::class)->create()->user_id;
 //      },
-      'user_id' => factory(App\User::class)->create()->user_id,
+      'user_id' => '174519',
       'check_time' => $faker->dateTime(),
-      'door_number' => random_int(1,10),
+      'door_number' => random_int(1,30),
     ];
 });

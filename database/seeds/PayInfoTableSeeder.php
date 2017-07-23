@@ -11,6 +11,6 @@ class PayInfoTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\pay_info::class,50)->create();
+        factory(App\pay_info::class,10000)->create();
     }
 }

@@ -15,11 +15,29 @@
 //    return view('welcome');
 //});
 
+
+
 Route::get('/','HomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@home')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/payinfos','HomeController@payinfos')->name('payinfos');
+
+Route::get('/workchecks','HomeController@workchecks')->name('workchecks');
+
+Route::get('/doorchecks','HomeController@doorchecks')->name('doorchecks');
+
+Route::get('uncheckedusers','HomeController@unchecked')->name('uncheckedusers');
+
+Route::get('checkedusers','HomeController@checked')->name('checkedusers');
+
+Route::delete('users/{user_id}','HomeController@delete_user')->name('deleteuser');
+
+
+
+
 
 
 

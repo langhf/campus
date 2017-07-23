@@ -89,10 +89,8 @@ class AndroidController extends Controller
             $work_checks += [
                 $key => [
                     'user_id' => $value->user_id,
-                    'record_date' => $value->record_date,
-                    'start_time' => $value->start_time,
-                    'end_time' => $value->end_time,
-                    'total_time' => $value->total_time
+                    'check_date' => $value->check_date,
+                    'check_time' => $value->check_time,
                 ],
             ];
         }
