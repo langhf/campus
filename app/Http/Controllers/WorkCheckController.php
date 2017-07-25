@@ -15,7 +15,19 @@ class WorkCheckController extends Controller
 
     public function api_get($user_id)
     {
-        return work_check::where('user_id',$user_id)->get();
+        $works = work_check::where('user_id',$user_id)->get();
+        $result = [];
+        foreach ($works as $key => $value){
+            $result += [
+                $key => [
+                   'user_id' => $value->user_id,
+                    'check_date' => $value->check_date,
+                    'check_time' => $value->check_time
+                ]
+            ];
+        }
+
+        return json_encode((object)$result);
     }
 
     public function api_post(Request $request)

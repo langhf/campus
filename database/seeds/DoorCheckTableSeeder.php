@@ -11,6 +11,6 @@ class DoorCheckTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\door_checks::class,10000)->create();
+        factory(App\door_checks::class,100)->create();
     }
 }

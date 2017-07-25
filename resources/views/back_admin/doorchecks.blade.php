@@ -33,18 +33,18 @@
                         <tr>
                             {{--<td>{{  }}</td>--}}
                             <td class="center">{{ $door->user_id }}</td>
-                            <td class="center">{{ $door->check_time }}</td>
+                            <td class="center">{{ $door->check_date."\t".$door->check_time }}</td>
                             <td class="center">{{ $door->door_number }}</td>
                             <td class="center">
-                                <a class="btn btn-success" href="#">
-                                    <i class="halflings-icon white zoom-in"></i>
-                                </a>
-                                <a class="btn btn-info" href="#">
-                                    <i class="halflings-icon white edit"></i>
-                                </a>
-                                <a class="btn btn-danger" href="#">
-                                    <i class="halflings-icon white trash"></i>
-                                </a>
+                                {{--<a class="btn btn-success" href="#">--}}
+                                    {{--<i class="halflings-icon white zoom-in"></i>--}}
+                                {{--</a>--}}
+                                {{--<a class="btn btn-info" href="#">--}}
+                                    {{--<i class="halflings-icon white edit"></i>--}}
+                                {{--</a>--}}
+                                {{--<a class="btn btn-danger" href="#">--}}
+                                    {{--<i class="halflings-icon white trash"></i>--}}
+                                {{--</a>--}}
                             </td>
                         </tr>
                     @endforeach

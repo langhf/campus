@@ -28,12 +28,12 @@ Route::get('/payinfos','HomeController@payinfos')->name('payinfos');
 Route::get('/workchecks','HomeController@workchecks')->name('workchecks');
 
 Route::get('/doorchecks','HomeController@doorchecks')->name('doorchecks');
+Route::get('door','DoorChecksController@web_get');
 
 Route::get('uncheckedusers','HomeController@unchecked')->name('uncheckedusers');
-
 Route::get('checkedusers','HomeController@checked')->name('checkedusers');
-
-Route::delete('users/{user_id}','HomeController@delete_user')->name('deleteuser');
+Route::post('deleteuser','HomeController@delete_user')->name('deleteuser');
+Route::post('checkuser','HomeController@check_user')->name('checkuser');
 
 
 

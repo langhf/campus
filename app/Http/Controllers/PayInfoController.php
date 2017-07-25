@@ -15,7 +15,23 @@ class PayInfoController extends Controller
 
     public function api_get($user_id)
     {
-        return  pay_info::where('user_id',$user_id)->get();
+        $infos = pay_info::where('user_id',$user_id)->get();
+        $result = [];
+
+        foreach ($infos as $key => $value) {
+            $result += [
+                $key => [
+                    'user_id' => $value->user_id,
+                    'pay_date' => $value->pay_date,
+                    'pay_time' => $value->pay_time,
+                    'origin_price' => $value->origin_price,
+                    'discounted_price' => $value->discounted_price,
+                    'off' => $value->off
+                ]
+            ];
+        }
+
+        return json_encode((object)$result);
     }
 
     public function api_post(Request $request)

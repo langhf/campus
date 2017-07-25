@@ -22,6 +22,7 @@
                             <th>用户名</th>
                             <th>学(工)号</th>
                             <th>联系方式</th>
+                            <th>注册时间</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
@@ -34,19 +35,37 @@
                             <td>{{ $user->name }}</td>
                             <td class="center">{{ $user->user_id }}</td>
                             <td class="center">{{ $user->tel }}</td>
+                            <td class="center">{{ $user->created_at }}</td>
                             <td class="center">
                                 <span class="label label-warning">待检</span>
                             </td>
                             <td class="center">
-                                <a class="btn btn-success" href="#">
-                                    <i class="halflings-icon white zoom-in"></i>
-                                </a>
-                                <a class="btn btn-info" href="#">
-                                    <i class="halflings-icon white edit"></i>
-                                </a>
-                                <a class="btn btn-danger" href="">
-                                    <i class="halflings-icon white trash"></i>
-                                </a>
+                                {{--<a class="btn btn-success" href="#">--}}
+                                    {{--<i class="halflings-icon white zoom-in"></i>--}}
+                                {{--</a>--}}
+                                {{--<a class="btn btn-info" href="#">--}}
+                                    {{--<i class="halflings-icon white edit"></i>--}}
+                                {{--</a>--}}
+                                <div style="float: left;padding: 2px;" >
+                                    <form id="check-form" style="margin-bottom: 0px;width" class="form-control left" action="{{ route('checkuser') }}" method="POST" >
+                                        {{ csrf_field() }}
+                                        <input class="form-control input-sm hidden" name="user_id" id="user_id" value="{{ $user->user_id }}">
+                                        <button type="submit" class="form-control btn btn-success" title="通过"><i class="halflings-icon white edit"></i></button>
+
+                                    </form>
+                                </div>
+
+                                <div style="float: left">
+                                    <form id="delete-form" style="margin-bottom: 0px" class="form-control left" action="{{ route('deleteuser') }}" method="POST" >
+                                        {{ csrf_field() }}
+                                        <input class="form-control input-sm hidden" name="user_id" id="user_id" value="{{ $user->user_id }}">
+                                        <button type="submit" class="form-control btn btn-danger" title="删除"><i class="halflings-icon white trash"></i></button>
+
+                                    </form>
+
+                                </div>
+
+
                             </td>
                         </tr>
                         @endforeach

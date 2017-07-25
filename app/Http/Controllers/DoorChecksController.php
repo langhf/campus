@@ -19,9 +19,46 @@ class DoorChecksController extends Controller
         return door_checks::all();
     }
 
+    public function web_get()
+    {
+        @$query = $_SERVER['QUERY_STRING'];
+        @parse_str($query,$querys);
+        @$user_id = $querys['user_id'];
+        @$rand_num = $querys['rand_num'];
+        @$door_number = $querys['door_number'];
+
+        $door = door_checks::where('user_id',@$user_id)
+                            ->where('rand_num',@$rand_num)
+                            ->get();
+        if(count($door)){
+
+            door_checks::where('user_id',@$user_id)
+                        ->where('rand_num',$rand_num)
+                        ->update(['door_number' => @$door_number]);
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
     public function api_get($user_id)
     {
-        return door_checks::where('user_id',$user_id)->get();
+        $doors =  door_checks::where('user_id',$user_id)
+                                ->where('check_date',date('Y-m-d'))
+                                ->get();
+        $result = [];
+
+        foreach ($doors as $key => $value){
+            $result += [
+                $key => [
+                    'user_id' => $value->user_id,
+                    'check_time' => $value->check_date." ".$value->check_time,
+                    'door_number' => $value->door_number
+                ]
+            ];
+        }
+
+        return json_encode((object)$result);
     }
 
     public function api_post(Request $request)
@@ -30,12 +67,18 @@ class DoorChecksController extends Controller
 
         $this->validate($request,[
            'user_id' => 'required|exists:users,user_id',
-            'door_number' => 'required',
+            'rand_num' => 'required',
         ]);
 
+        $carbon = Carbon::now();
+        $date = $carbon->year."-".$carbon->month."-".$carbon->day;
+        $time = $carbon->hour.":".$carbon->minute.":".$carbon->second;
+
+
         $check->user_id = request('user_id');
-        $check->check_time = Carbon::now();
-        $check->door_number = request('door_number');
+        $check->check_date = $date;
+        $check->check_time = $time;
+        $check->rand_num = request('rand_num');
 
         if($check->save()){
             return response()->json(['result'=>'OK'],200);

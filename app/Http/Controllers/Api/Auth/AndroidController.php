@@ -51,19 +51,19 @@ class AndroidController extends Controller
     //目前只有用私人授权方式才能发放令牌
 
         $this->validate($request,[
-            'user_id' => 'required|exists:users,user_id',
+            'user_id' => 'required',
             'password'=> 'required'
         ]);
 
 
-        $user = User::find(request('user_id'));
+        @$user = User::find(request('user_id'));
 
         $email = request('password')."@qq.com";
 
 
-        if($email == $user->email && $user->is_check==1){
+        if($email == @$user->email && $user->is_check==1){
 
-            $token = $user->createToken('drealng')->accessToken;
+            $token = @$user->createToken('drealng')->accessToken;
             return $token;
 
         }
@@ -100,6 +100,7 @@ class AndroidController extends Controller
             $door_checks += [
                 $key => [
                     'user_id' => $value->user_id,
+                    'check_date' => $value->check_date,
                     'check_time' => $value->check_time,
                     'door_number' => $value->door_number
                 ]
@@ -129,12 +130,12 @@ class AndroidController extends Controller
 
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-                $accessToken = Auth::user()->token();
-        DB::table('oauth_refresh_tokens')
-            ->where('access_token_id',$accessToken->id)
-            ->update(['revoked'=>true]);
+        $accessToken = Auth::user()->token();
+//        DB::table('oauth_refresh_tokens')
+//            ->where('access_token_id',$accessToken->id)
+//            ->update(['revoked'=>true]);
         $accessToken->revoke();
 
         return response()->json([],204);

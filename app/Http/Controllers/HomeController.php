@@ -30,23 +30,30 @@ class HomeController extends Controller
 
     public function unchecked()
     {
-        $users = App\User::where('is_check','0')
-                            ->orderBy('created_at','desc')
-                            ->paginate(1000);
-        return view('back_admin.uncheckedusers',['users' => $users]);
+        $users = App\User::where('is_check', '0')
+            ->orderBy('created_at', 'desc')
+            ->paginate(1000);
+        return view('back_admin.uncheckedusers', ['users' => $users]);
     }
 
     public function checked()
     {
-        $users = App\User::where('is_check','1')
-                            ->orderBy('created_at','desc')
-                            ->paginate(1000);
-        return view('back_admin.checkedusers',['users' => $users]);
+        $users = App\User::where('is_check', '1')
+            ->orderBy('created_at', 'desc')
+            ->paginate(1000);
+        return view('back_admin.checkedusers', ['users' => $users]);
     }
 
-    public function delete_user($user_id)
+    public function delete_user()
     {
-        App\User::where('user_id',$user_id)->delete();
+        App\User::where('user_id', request('user_id'))->delete();
+        return redirect(route('uncheckedusers'));
+    }
+
+    public function check_user()
+    {
+        App\User::where('user_id',request('user_id'))->update(['is_check' => '1']);
+        return redirect(route('uncheckedusers'));
     }
 
     public function workchecks()

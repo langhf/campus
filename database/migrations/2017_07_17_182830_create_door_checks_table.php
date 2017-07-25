@@ -16,8 +16,10 @@ class CreateDoorChecksTable extends Migration
         Schema::create('door_checks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id');
-            $table->dateTime('check_time');
-            $table->integer('door_number');
+            $table->date('check_date');
+            $table->time('check_time');
+            $table->string('rand_num');
+            $table->integer('door_number')->nullable();
             $table->timestamps();
         });
     }
