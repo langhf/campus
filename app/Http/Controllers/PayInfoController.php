@@ -15,7 +15,12 @@ class PayInfoController extends Controller
 
     public function api_get($user_id)
     {
-        $infos = pay_info::where('user_id',$user_id)->get();
+        $carbon = Carbon::now();
+        $date = $carbon->year."-".$carbon->month."-".$carbon->day;
+
+        $infos = pay_info::where('user_id',$user_id)
+                            ->where('pay_date',$date)
+                            ->get();
         $result = [];
 
         foreach ($infos as $key => $value) {
@@ -31,7 +36,8 @@ class PayInfoController extends Controller
             ];
         }
 
-        return json_encode((object)$result);
+        return $result;
+//        return json_encode((object)$result);
     }
 
     public function api_post(Request $request)

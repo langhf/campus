@@ -43,8 +43,11 @@ class DoorChecksController extends Controller
 
     public function api_get($user_id)
     {
+        $carbon = Carbon::now();
+        $date = $carbon->year."-".$carbon->month."-".$carbon->day;
+
         $doors =  door_checks::where('user_id',$user_id)
-                                ->where('check_date',date('Y-m-d'))
+                                ->where('check_date',$date)
                                 ->get();
         $result = [];
 
@@ -58,7 +61,8 @@ class DoorChecksController extends Controller
             ];
         }
 
-        return json_encode((object)$result);
+        return $result;
+//        return json_encode((object)$result);
     }
 
     public function api_post(Request $request)

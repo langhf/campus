@@ -15,25 +15,33 @@ class WorkCheckController extends Controller
 
     public function api_get($user_id)
     {
-        $works = work_check::where('user_id',$user_id)->get();
+        $carbon = Carbon::now();
+        $date = $carbon->year."-".$carbon->month."-".$carbon->day;
+
+        $works = work_check::where('user_id',$user_id)
+                            ->where('check_date',$date)
+                            ->get();
         $result = [];
         foreach ($works as $key => $value){
             $result += [
                 $key => [
                    'user_id' => $value->user_id,
+                    'address' => $value->address,
                     'check_date' => $value->check_date,
                     'check_time' => $value->check_time
                 ]
             ];
         }
 
-        return json_encode((object)$result);
+        return $result;
+//        return json_encode((object)$result);
     }
 
     public function api_post(Request $request)
     {
         $this->validate($request,[
             'user_id' => 'required|exists:users,user_id',
+            'address' => 'required'
         ]);
 
         $carbon = Carbon::now();
@@ -42,6 +50,7 @@ class WorkCheckController extends Controller
 
         $work = work_check::create([
            'user_id' =>  request('user_id'),
+            'address' => request('address'),
             'check_date' => $date,
             'check_time' => $time
         ]);

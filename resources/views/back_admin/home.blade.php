@@ -45,7 +45,7 @@
 <body>
 <!-- start: Header -->
 <div class="navbar">
-	<div class="navbar-inner">
+	<div class="navbar navbar-inner" style="background: #0e90d2">
 		<div class="container-fluid">
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
 				<span class="icon-bar"></span>
@@ -105,7 +105,7 @@
 					</li>
 
 					<li>
-						<a class="dropmenu" href="#"><i class="icon-align-justify"></i><span class="hidden-tablet"> 用户管理</span><span class="label label-success"> 2 </span></a>
+						<a class="dropmenu" href="#"><i class="icon-align-left"></i><span class="hidden-tablet"> 用户管理</span><span class="label label-success"> 2 </span></a>
 						<ul>
 							<li><a class="submenu" href="{{ route('uncheckedusers') }}"><i class="icon-file-alt"></i><span class="hidden-tablet"> 待检用户</span></a></li>
 							<li><a class="submenu" href="{{ route('checkedusers') }}"><i class="icon-file-alt"></i><span class="hidden-tablet"> 已检用户</span></a></li>

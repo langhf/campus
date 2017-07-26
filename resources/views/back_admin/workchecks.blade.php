@@ -21,6 +21,7 @@
                     <tr>
                         {{--<th>用户名</th>--}}
                         <th>学(工)号</th>
+                        <th>打卡地点</th>
                         <th>打卡日期</th>
                         <th>打卡时间</th>
                         <th>操作</th>
@@ -33,6 +34,7 @@
                         <tr>
 {{--                            <td>{{ $work->user}}</td>--}}
                             <td class="center">{{ $work->user_id }}</td>
+                            <td class="center">{{ $work->address }}</td>
                             <td class="center">{{ $work->check_date }}</td>
                             <td class="center">{{ $work->check_time }}</td>
                             <td class="center">

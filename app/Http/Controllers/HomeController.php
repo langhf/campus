@@ -58,27 +58,25 @@ class HomeController extends Controller
 
     public function workchecks()
     {
-        $works = App\work_check::where('user_id','174519')
-                                ->orderBy('check_date','desc')
+        $works = App\work_check::orderBy('check_date','desc')
                                 ->orderBy('check_time','desc')
-                                ->paginate(1000);
+                                ->paginate(500);
         return view('back_admin.workchecks',['works' => $works]);
     }
 
     public function doorchecks()
     {
-        $doors = App\door_checks::where('user_id','174519')
+        $doors = App\door_checks::where('door_number','!=','')
                                 ->orderBy('check_time','desc')
-                                ->paginate(1000);
+                                ->paginate(500);
         return view('back_admin.doorchecks',['doors' => $doors]);
     }
 
     public function payinfos()
     {
-        $payinfos = App\pay_info::where('user_id','174519')
-                                ->orderBy('pay_date','desc')
+        $payinfos = App\pay_info::orderBy('pay_date','desc')
                                 ->orderBy('pay_time','desc')
-                                ->paginate(1000);
+                                ->paginate(500);
         return view('back_admin.payinfos',['payinfos' => $payinfos]);
     }
 

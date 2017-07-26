@@ -16,6 +16,7 @@ class CreateWorkChecksTable extends Migration
         Schema::create('work_checks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id');
+            $table->string('address');
             $table->date('check_date');
             $table->time('check_time');
 //            $table->time('end_time');
