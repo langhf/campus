@@ -21,6 +21,7 @@ class CreatePayInfosTable extends Migration
             $table->float('origin_price');
             $table->float('discounted_price');
             $table->float('off');
+            $table->string('shop');
             $table->timestamps();
         });
     }

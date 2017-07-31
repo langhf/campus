@@ -34,3 +34,5 @@ Route::post('workchecks','WorkCheckController@api_post')->middleware('auth:api')
 Route::get('payinfos','PayInfoController@all')->middleware('auth:api');
 Route::get('payinfos/{user_id}','PayInfoController@api_get')->middleware('auth:api');
 Route::post('payinfos','PayInfoController@api_post')->middleware('auth:api');
+
+Route::get('userinfo/{user_id}','UserController@api_get')->middleware('auth:api');

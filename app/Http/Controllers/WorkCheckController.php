@@ -13,28 +13,25 @@ class WorkCheckController extends Controller
         return work_check::all();
     }
 
-    public function api_get($user_id)
+    public function api_get($user_id,Request $request)
     {
+        $this->validate($request,[
+           'date_start' => 'required|date'
+        ]);
+
+
         $carbon = Carbon::now();
-        $date = $carbon->year."-".$carbon->month."-".$carbon->day;
+        $now = $carbon->year."-".$carbon->month."-".$carbon->day;
 
-        $works = work_check::where('user_id',$user_id)
-                            ->where('check_date',$date)
+        $date_start = request('date_start');
+        $date_end = @request('date_end')?request('date_end'):$now;
+
+        $result = work_check::where('user_id',$user_id)
+                            ->where('check_date','>=',$date_start)
+                            ->where('check_date','<=',$date_end)
+                            ->select('user_id','address','check_date','check_time')
                             ->get();
-        $result = [];
-        foreach ($works as $key => $value){
-            $result += [
-                $key => [
-                   'user_id' => $value->user_id,
-                    'address' => $value->address,
-                    'check_date' => $value->check_date,
-                    'check_time' => $value->check_time
-                ]
-            ];
-        }
-
         return $result;
-//        return json_encode((object)$result);
     }
 
     public function api_post(Request $request)

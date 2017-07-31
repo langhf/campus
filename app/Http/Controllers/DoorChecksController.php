@@ -48,6 +48,7 @@ class DoorChecksController extends Controller
 
         $doors =  door_checks::where('user_id',$user_id)
                                 ->where('check_date',$date)
+                                ->where('door_number','!=','')
                                 ->get();
         $result = [];
 
