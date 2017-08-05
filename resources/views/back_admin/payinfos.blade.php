@@ -20,6 +20,7 @@
                     <thead>
                     <tr>
                         {{--<th>用户名</th>--}}
+                        <th>姓名</th>
                         <th>学(工)号</th>
                         <th>支付日期</th>
                         <th>支付时间</th>
@@ -34,7 +35,7 @@
 
                     @foreach($payinfos as $payinfo)
                         <tr>
-                            {{--<td>{{  }}</td>--}}
+                            <td class="center">{{ \App\User::where("user_id",$payinfo->user_id)->get()[0]->name}}</td>
                             <td class="center">{{ $payinfo->user_id }}</td>
                             <td class="center">{{ $payinfo->pay_date }}</td>
                             <td class="center">{{ $payinfo->pay_time }}</td>

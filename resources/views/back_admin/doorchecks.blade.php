@@ -20,6 +20,7 @@
                     <thead>
                     <tr>
                         {{--<th>用户名</th>--}}
+                        <th>姓名</th>
                         <th>学(工)号</th>
                         <th>检查时间</th>
                         <th>门编号</th>
@@ -32,6 +33,7 @@
                     @foreach($doors as $door)
                         <tr>
                             {{--<td>{{  }}</td>--}}
+                            <td class="center">{{ \App\User::where("user_id",$door->user_id)->get()[0]->name}}</td>
                             <td class="center">{{ $door->user_id }}</td>
                             <td class="center">{{ $door->check_date."\t".$door->check_time }}</td>
                             <td class="center">{{ $door->door_number }}</td>

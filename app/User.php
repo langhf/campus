@@ -40,7 +40,8 @@ class User extends Authenticatable
         return $this->hasMany('App\door_checks','user_id','user_id');
     }
 
-    public function work_checks(){
+    public function work_checks()
+    {
         return $this->hasMany('App\work_check','user_id','user_id');
     }
 }

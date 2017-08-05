@@ -20,6 +20,7 @@
                     <thead>
                     <tr>
                         {{--<th>用户名</th>--}}
+                        <th>姓名</th>
                         <th>学(工)号</th>
                         <th>打卡地点</th>
                         <th>打卡日期</th>
@@ -33,6 +34,7 @@
                     @foreach($works as $work)
                         <tr>
 {{--                            <td>{{ $work->user}}</td>--}}
+                            <td class="center">{{ \App\User::where("user_id",$work->user_id)->get()[0]->name}}</td>
                             <td class="center">{{ $work->user_id }}</td>
                             <td class="center">{{ $work->address }}</td>
                             <td class="center">{{ $work->check_date }}</td>
