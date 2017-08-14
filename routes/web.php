@@ -35,6 +35,8 @@ Route::get('checkedusers','HomeController@checked')->name('checkedusers');
 Route::post('deleteuser','HomeController@delete_user')->name('deleteuser');
 Route::post('checkuser','HomeController@check_user')->name('checkuser');
 
+//A Test Route for AliPay
+//Route::post('test','AlipayController@Alipay');
 
 
 

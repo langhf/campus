@@ -24,15 +24,15 @@ Route::middleware('auth:api')->group(function ( ) {
 
 
 Route::get('doorchecks','DoorChecksController@all')->middleware('auth:api');  //此路由不应该出现在API内
-Route::get('doorchecks/{user_id}','DoorChecksController@api_get')->middleware('auth:api');
+Route::get('doorchecks/{user_id}/{query_date?}','DoorChecksController@api_get')->middleware('auth:api');
 Route::post('doorchecks','DoorChecksController@api_post')->middleware('auth:api');
 
 Route::get('workchecks','WorkCheckController@all')->middleware('auth:api');
-Route::get('workchecks/{user_id}','WorkCheckController@api_get')->middleware('auth:api');
+Route::get('workchecks/{user_id}/{query_date?}','WorkCheckController@api_get')->middleware('auth:api');
 Route::post('workchecks','WorkCheckController@api_post')->middleware('auth:api');
 
 Route::get('payinfos','PayInfoController@all')->middleware('auth:api');
-Route::get('payinfos/{user_id}','PayInfoController@api_get')->middleware('auth:api');
+Route::get('payinfos/{user_id}/{query_date?}','PayInfoController@api_get')->middleware('auth:api');
 Route::post('payinfos','PayInfoController@api_post')->middleware('auth:api');
 
 Route::get('userinfo/{user_id}','UserController@api_get')->middleware('auth:api');

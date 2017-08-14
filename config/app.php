@@ -173,6 +173,13 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
 
+
+        /*
+         * Package Alipay Providers
+         */
+
+        Latrell\Alipay\AlipayServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

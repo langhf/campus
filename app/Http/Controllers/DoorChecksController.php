@@ -41,28 +41,50 @@ class DoorChecksController extends Controller
         }
     }
 
-    public function api_get($user_id)
+
+    public function api_get($user_id,$query_date=Null)
     {
-        $carbon = Carbon::now();
-        $date = $carbon->year."-".$carbon->month."-".$carbon->day;
-
-        $doors =  door_checks::where('user_id',$user_id)
-                                ->where('check_date',$date)
-                                ->where('door_number','!=','')
+        if($query_date){
+            $doors = door_checks::where('user_id',"=",$user_id)
+                                ->where('check_date',"<=",$query_date."-31")
+                                ->where('check_date',">=",$query_date."-1")
                                 ->get();
-        $result = [];
 
-        foreach ($doors as $key => $value){
-            $result += [
-                $key => [
-                    'user_id' => $value->user_id,
-                    'check_time' => $value->check_date." ".$value->check_time,
-                    'door_number' => $value->door_number
-                ]
-            ];
+            $result = [];
+            foreach ($doors as $key => $value){
+                $result += [
+                    $key => [
+                        'user_id' => $value->user_id,
+                        'check_time' => $value->check_date." ".$value->check_time,
+                        'door_number' => $value->door_number
+                    ]
+                ];
+            }
+
+            return $result;
         }
+        else{
+            $carbon = Carbon::now();
+            $date = $carbon->year."-".$carbon->month."-".$carbon->day;
 
-        return $result;
+            $doors =  door_checks::where('user_id',$user_id)
+                ->where('check_date',$date)
+                ->where('door_number','!=','')
+                ->get();
+            $result = [];
+
+            foreach ($doors as $key => $value){
+                $result += [
+                    $key => [
+                        'user_id' => $value->user_id,
+                        'check_time' => $value->check_date." ".$value->check_time,
+                        'door_number' => $value->door_number
+                    ]
+                ];
+            }
+
+            return $result;
+        }
 //        return json_encode((object)$result);
     }
 

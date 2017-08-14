@@ -40,7 +40,8 @@
                             <td class="center">
                                 {{--<a class="btn btn-success" href="#">--}}
                                     {{--<i class="halflings-icon white zoom-in"></i>--}}
-                                {{--</a>--}}
+                                {{--</a>-
+                                -}}
                                 {{--<a class="btn btn-info" href="#">--}}
                                     {{--<i class="halflings-icon white edit"></i>--}}
                                 {{--</a>--}}

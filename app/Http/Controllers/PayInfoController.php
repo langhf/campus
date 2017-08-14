@@ -13,45 +13,47 @@ class PayInfoController extends Controller
         return pay_info::all();
     }
 
-    public function api_get($user_id, Request $request)
+    public function api_get($user_id,$query_date=Null)
     {
-        $this->validate($request,[
-            'date_start' => 'required|date'
-        ]);
+        if($query_date){
+            $results = pay_info::where('user_id',$user_id)
+                ->where('pay_date','>=',$query_date."-1")
+                ->where('pay_date',"<=",$query_date."-31")
+                ->select('user_id','pay_date','pay_time','origin_price','discounted_price','off','shop')
+                ->get();
 
-        $carbon = Carbon::now();
-        $now = $carbon->year."-".$carbon->month."-".$carbon->day;
-
-        $date_start = request('date_start');
-        $date_end = @request('date_end')?request('date_end'):$now;
-
-        $results = pay_info::where('user_id',$user_id)
-                            ->where('pay_date','>=',$date_start)
-                            ->where('pay_date','<=',$date_end)
-                            ->select('user_id','pay_date','pay_time','origin_price','discounted_price','off','shop')
-                            ->get();
-
-        $total_origin = $total_discounted = $total_off = 0;
-
-        foreach ($results as $temp){
-            $total_origin += $temp->origin_price;
-            $total_discounted += $temp->discounted_price;
-            $total_off += $temp->off;
+            return $results;
         }
+        else{
+            $carbon = Carbon::now();
+            $now = $carbon->year."-".$carbon->month."-".$carbon->day;
 
+            $results = pay_info::where('user_id',$user_id)
+                ->where('pay_date','>=',$now)
+                ->select('user_id','pay_date','pay_time','origin_price','discounted_price','off','shop')
+                ->get();
 
-        $total = [
-            'total_origin' => $total_origin,
-            'total_discounted' => $total_discounted,
-            'total_off' => $total_off
-        ];
+            $total_origin = $total_discounted = $total_off = 0;
 
-        $result = [
-          'total' => $total,
-          'description' => $results
-        ];
+            foreach ($results as $temp){
+                $total_origin += $temp->origin_price;
+                $total_discounted += $temp->discounted_price;
+                $total_off += $temp->off;
+            }
 
-        return $result;
+            $total = [
+                'total_origin' => $total_origin,
+                'total_discounted' => $total_discounted,
+                'total_off' => $total_off
+            ];
+
+            $result = [
+                'total' => $total,
+                'description' => $results
+            ];
+
+            return $result;
+        }
     }
 
     public function api_post(Request $request)

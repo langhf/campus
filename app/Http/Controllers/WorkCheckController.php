@@ -13,25 +13,28 @@ class WorkCheckController extends Controller
         return work_check::all();
     }
 
-    public function api_get($user_id,Request $request)
+    public function api_get($user_id,$query_date=Null)
     {
-        $this->validate($request,[
-           'date_start' => 'required|date'
-        ]);
+       if($query_date){
+           $result = work_check::where('user_id',$user_id)
+               ->where('check_date','>=',$query_date."-1")
+               ->where('check_date','<=',$query_date."-31")
+               ->select('user_id','address','check_date','check_time')
+               ->get();
+           return $result;
+       }
+       else{
+           $carbon = Carbon::now();
+           $now = $carbon->year."-".$carbon->month."-".$carbon->day;
 
 
-        $carbon = Carbon::now();
-        $now = $carbon->year."-".$carbon->month."-".$carbon->day;
+           $result = work_check::where('user_id',$user_id)
+               ->where('check_date','>=',$now)
+               ->select('user_id','address','check_date','check_time')
+               ->get();
+           return $result;
+       }
 
-        $date_start = request('date_start');
-        $date_end = @request('date_end')?request('date_end'):$now;
-
-        $result = work_check::where('user_id',$user_id)
-                            ->where('check_date','>=',$date_start)
-                            ->where('check_date','<=',$date_end)
-                            ->select('user_id','address','check_date','check_time')
-                            ->get();
-        return $result;
     }
 
     public function api_post(Request $request)
