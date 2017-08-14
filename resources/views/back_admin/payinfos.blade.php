@@ -22,6 +22,7 @@
                         {{--<th>用户名</th>--}}
                         <th>姓名</th>
                         <th>学(工)号</th>
+                        <th>消费地点</th>
                         <th>支付日期</th>
                         <th>支付时间</th>
                         <th>原价</th>
@@ -37,6 +38,7 @@
                         <tr>
                             <td class="center">{{ \App\User::where("user_id",$payinfo->user_id)->get()[0]->name}}</td>
                             <td class="center">{{ $payinfo->user_id }}</td>
+                            <td class="center">{{ $payinfo->shop }}</td>
                             <td class="center">{{ $payinfo->pay_date }}</td>
                             <td class="center">{{ $payinfo->pay_time }}</td>
                             <td class="center">{{ $payinfo->origin_price }}</td>
