@@ -33,26 +33,7 @@ class PayInfoController extends Controller
                 ->select('user_id','pay_date','pay_time','origin_price','discounted_price','off','shop')
                 ->get();
 
-            $total_origin = $total_discounted = $total_off = 0;
-
-            foreach ($results as $temp){
-                $total_origin += $temp->origin_price;
-                $total_discounted += $temp->discounted_price;
-                $total_off += $temp->off;
-            }
-
-            $total = [
-                'total_origin' => $total_origin,
-                'total_discounted' => $total_discounted,
-                'total_off' => $total_off
-            ];
-
-            $result = [
-                'total' => $total,
-                'description' => $results
-            ];
-
-            return $result;
+            return $results;
         }
     }
 
